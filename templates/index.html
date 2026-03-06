@@ -7,21 +7,13 @@
         <h1>AfriLang 🌍</h1>
         <p>Translate english words to African Languages</p>
 
-        <input type="text" id="word" placeholder="Enter a word">
-        <button onclick="TranslateWord()">Translate</button>
+        <form action="/translate" method="post">
+            <input type="text" name="word" placeholder="Enter a word">
+            <button type="submit">Translate</button>
+        </form>
 
-        <p id="result"></p>
-
-        <script>
-            function TranslateWord(){
-                const word = document.getElementById("word").value.toLowerCase();
-                fetch('/translate/${word}').then(res => res.json()).then(data => {
-                    if (data.translate){
-                        document.getElementById("result").innerText = data.translate;
-                    } else{
-                        document.getElementById("result").innerText = "word not found"
-                    }});
-            }
-        </script>
+        {% if result %}
+            <p>{{ result }}</p>
+        {% endif %}
     </body>
 </html>

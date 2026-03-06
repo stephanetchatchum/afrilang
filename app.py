@@ -1,17 +1,19 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import json
 app = Flask(__name__)
 
 with open("data/twi.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
-@app.route("/translate/<word>")
-def translate(word):
-    word = word.lower()
+@app.route("/translate", methods=["POST"])
+def translate():
+    word = request.form["word"].lower()
     if word in data:
-        return {"Word": word, "translation": data[word]}
+        result = data[word]
     else:
-        return {"Error": "Word not found"}
+        result = "Word not found"
+    return render_template("index.html", result=result)
+
 @app.route("/")
 def home():
     return render_template("index.html")
