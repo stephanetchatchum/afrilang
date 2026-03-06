@@ -24,11 +24,22 @@ def quiz():
         print("Sorry thats not correct😭")
         print(f"The correct answer was: {data[q_word]}")
 
+def contribute():
+    new_word = input("Enter the English Word you want to contribute: ")
+    if new_word in data:
+        print("Word already exists in the dictionary.")
+        return
+    trans_nw = input(f"Enter the translation of the {new_word} in Akan")
+    data[new_word] = trans_nw
+    print(f"'{new_word}' has been added. Thank you for contributing!")
+    with open("data/twi.json", "w", encoding="utf-8") as f:
+        json.dump(data, f)
+
 
 running = True
 while running == True:
     try:
-        cont = int(input("Do you want to translate(1) or print all(2) or test yourself(3) quit(4): "))
+        cont = int(input("Do you want to translate(1) or print all(2) or test yourself(3) contribute(4) quit(5): "))
     except:
         print("Invalid Input\n")
         continue
@@ -41,6 +52,8 @@ while running == True:
     elif cont == 3:
         quiz()
     elif cont == 4:
+        contribute()
+    elif cont == 5:
         running = False
     else:
         print("Invalid input\n")
