@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All Words💬</title>
+    </head>
+    <body>
+        <h1>All Words</h1>
+        {% for word in data %}
+            <p>{{ word}} : {{ data[word] }}</p>
+        {% endfor%}
+        <a href="/">Back to translate</a>
+    </body>
+</html>
