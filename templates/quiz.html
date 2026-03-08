@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test yourself⁉️</title>
+    </head>
+    <body>
+        <h1>Translate this: </h1>
+
+        <form action="/quiz" method="post">
+            <input type="hidden" name="english" value="{{ english }}">
+            <input type="text" name="ans" placeholder="Enter the meaning">
+            <button type="submit">Submit</button>
+        </form>
+
+        <h2>{{ question }}</h2>
+        {% if message %}
+            <p>{{ message }}</p>
+            <a href="/quiz">Next question   </a>
+        {% endif %}
+        <a href="/">Back to translate</a>
+    </body>
+</html>

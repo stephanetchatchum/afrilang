@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import random
 app = Flask(__name__)
 
 with open("data/twi.json", "r", encoding="utf-8") as f:
@@ -19,8 +20,24 @@ def home():
     return render_template("index.html")
 
 @app.route("/list")
-def list():
+def list_words():
     return render_template("list.html", data=data)
+
+@app.route("/quiz", methods=["GET", "POST"])
+def quiz():
+    message = None
+    if request.method == "POST":
+        english = request.form["english"]
+        question = data[english]
+        ans = request.form["ans"].lower()
+        if ans == english:
+            message = "Correct ✅"
+        else:
+            message = f"Wrong, the meaning is '{english}'"
+    else:
+        english = random.choice(list(data.keys()))
+        question = data[english]
+    return render_template("quiz.html", question=question, english=english, message=message)
 
 @app.route("/contribute", methods=["GET", "POST"])
 def contribute():
