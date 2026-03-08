@@ -1,10 +1,23 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
+from gtts import gTTS
+import os
 import json
 import random
 app = Flask(__name__)
 
 with open("data/twi.json", "r", encoding="utf-8") as f:
     data = json.load(f)
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/pronounce/<word>")
+def pronounce(word):
+    tts = gTTS(text=word, lang="en")
+    filepath = f"static/{word}.mp3"
+    tts.save(filepath)
+    return send_file(filepath, mimetype="audio/mpeg")
 
 @app.route("/translate", methods=["POST"])
 def translate():
@@ -15,9 +28,6 @@ def translate():
         result = "Word not found"
     return render_template("index.html", result=result)
 
-@app.route("/")
-def home():
-    return render_template("index.html")
 
 @app.route("/list")
 def list_words():

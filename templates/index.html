@@ -17,6 +17,10 @@
         <a href="/quiz">test yourself  </a>
         {% if result %}
             <p>{{ result }}</p>
+            <audio controls autoplay>
+                <source src="/pronounce/{{ result }}" type="audio/mpeg"
+            </audio>
         {% endif %}
+
     </body>
 </html>
