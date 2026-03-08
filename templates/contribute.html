@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contribute💁‍♂️</title>
+    </head>
+    <body>
+        <h1>Add words to the list</h1>
+
+        <form action="/contribute" method="post">
+            <input type="text" name="word" placeholder="Enter a word">
+            <input type="text" name="translation" placeholder="Enter the meaning in Akan">
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        
+        <a href="/">Back to translate</a>
+    </body>
+</html>

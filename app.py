@@ -22,5 +22,20 @@ def home():
 def list():
     return render_template("list.html", data=data)
 
+@app.route("/contribute", methods=["GET", "POST"])
+def contribute():
+    message = None
+    if request.method == "POST":
+        new_word = request.form["word"].lower()
+        translation = request.form["translation"].lower()
+        if new_word in data:
+            message = "Word already exists."
+        else:
+            data[new_word] = translation
+            with open("data/twi.json", "w", encoding="utf-8") as f:
+                json.dump(data, f)
+            message = f"'{new_word}' added successfully. Thank you"
+    return render_template("contribute.html", message=message)
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
